@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StudentOrganizer.DAL.Interfaces
 {
-    public interface IRepository<T> where T : DBEntity
+    public interface IRepository<T> where T : class
     {
         IQueryable<T> GetAll();
         Task<T> GetByIdAsync(int id);
