@@ -24,7 +24,7 @@ namespace StudentOrganizer.DAL.Entities
     }
     public class ScheduleLesson : DBEntity
     {
-        public int LessonNumber { get; set; } // номер пари
+        public int LessonNumber { get; set; }
         public DayOfTheWeek DayOfTheWeek { get; set; }
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }

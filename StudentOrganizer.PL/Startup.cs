@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StudentOrganizer.BL;
 using StudentOrganizer.DAL;
 using StudentOrganizer.DAL.Interfaces;
 
@@ -27,6 +30,15 @@ namespace StudentOrganizer.PL
 
             services.AddDbContext<SOrganizerDBContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SOrganaizerDB")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // var mpcfg = new MapperConfiguration(c => c.AddProfile(new AutomapperProfile()));
+            var mpcfg = new MapperConfiguration(c => {
+                c.AddCollectionMappers();
+                c.AddProfile(new AutomapperProfile());
+            });
+
+            services.AddSingleton(mpcfg.CreateMapper());
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

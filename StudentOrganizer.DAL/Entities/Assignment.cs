@@ -16,7 +16,6 @@ namespace StudentOrganizer.DAL.Entities
         public AssignmentState State { get; set; }
         public DateTime Deadline { get; set; }
         public string Describtion { get; set; }
-        //public int ScheduleLessonId { get; set; }
         public ScheduleLesson ScheduleLesson { get; set; }
     }
 }
