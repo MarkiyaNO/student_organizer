@@ -1,7 +1,5 @@
-﻿using StudentOrganizer.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using StudentOrganizer.DAL.Entities;
 
 namespace StudentOrganizer.BLL.Models
 {

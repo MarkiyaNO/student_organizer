@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StudentOrganizer.BL;
+using StudentOrganizer.BLL.Interfaces;
+using StudentOrganizer.BLL.Services;
 using StudentOrganizer.DAL;
 using StudentOrganizer.DAL.Interfaces;
 
@@ -30,6 +32,8 @@ namespace StudentOrganizer.PL
 
             services.AddDbContext<SOrganizerDBContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SOrganaizerDB")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IScheduleService, ScheduleService>();
 
             // var mpcfg = new MapperConfiguration(c => c.AddProfile(new AutomapperProfile()));
             var mpcfg = new MapperConfiguration(c => {
