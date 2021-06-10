@@ -14,6 +14,14 @@ namespace StudentOrganizer.DAL.Entities
         Saturday,
         Sunday
     }
+
+    public enum LessonType
+    {
+        Lecture,
+        Practice,
+        Lab,
+        Other
+    }
     public class ScheduleLesson : DBEntity
     {
         public int LessonNumber { get; set; } // номер пари
@@ -23,5 +31,9 @@ namespace StudentOrganizer.DAL.Entities
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }
         public ICollection<Assignment> Assignments { get; set; }
+        public string Place { get; set; }
+        public string Link { get; set; }
+        public LessonType LessonType { get; set; }
+
     }
 }

@@ -26,20 +26,19 @@ namespace StudentOrganizer.DAL
             modelBuilder.Entity<Schedule>()
                         .HasKey(x => x.Id);
 
-            modelBuilder.Entity<Schedule>()
-                        .HasOne(x => x.Student)
-                        .WithMany(x => x.Schedules)
-                        .HasPrincipalKey(x=>x.StudentId)
-                        .HasForeignKey(x => x.StudentId);
+            //modelBuilder.Entity<Schedule>()
+            //            .HasOne(x => x.Student)
+            //            .WithMany(x => x.Schedules)
+            //            .HasPrincipalKey(x => x.StudentId);
 
             // Assignment
             modelBuilder.Entity<Assignment>()
                         .HasKey(x => x.Id);
 
-            modelBuilder.Entity<Assignment>()
-                        .HasOne(x => x.ScheduleLesson)
-                        .WithMany(x => x.Assignments)
-                        .HasForeignKey(x => x.ScheduleLessonId);
+            //modelBuilder.Entity<Assignment>()
+            //            .HasOne(x => x.ScheduleLesson)
+            //            .WithMany(x => x.Assignments)
+            //            .HasForeignKey(x => x.ScheduleLessonId);
 
             modelBuilder.Entity<Assignment>()
                         .Property(x => x.State)

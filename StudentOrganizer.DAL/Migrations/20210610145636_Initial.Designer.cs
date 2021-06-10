@@ -10,7 +10,7 @@ using StudentOrganizer.DAL;
 namespace StudentOrganizer.DAL.Migrations
 {
     [DbContext(typeof(SOrganizerDBContext))]
-    [Migration("20210609160238_Initial")]
+    [Migration("20210610145636_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,7 +165,7 @@ namespace StudentOrganizer.DAL.Migrations
                     b.Property<string>("Describtion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ScheduleLessonId")
+                    b.Property<int?>("ScheduleLessonId")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
@@ -207,8 +207,8 @@ namespace StudentOrganizer.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -400,9 +400,7 @@ namespace StudentOrganizer.DAL.Migrations
                 {
                     b.HasOne("StudentOrganizer.DAL.Entities.ScheduleLesson", "ScheduleLesson")
                         .WithMany("Assignments")
-                        .HasForeignKey("ScheduleLessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ScheduleLessonId");
 
                     b.Navigation("ScheduleLesson");
                 });
@@ -411,10 +409,7 @@ namespace StudentOrganizer.DAL.Migrations
                 {
                     b.HasOne("StudentOrganizer.DAL.Entities.Student", "Student")
                         .WithMany("Schedules")
-                        .HasForeignKey("StudentId")
-                        .HasPrincipalKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });

@@ -177,7 +177,7 @@ namespace StudentOrganizer.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentId = table.Column<int>(type: "int", nullable: false)
+                    StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -186,8 +186,8 @@ namespace StudentOrganizer.DAL.Migrations
                         name: "FK_Schedules_AspNetUsers_StudentId",
                         column: x => x.StudentId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -249,7 +249,7 @@ namespace StudentOrganizer.DAL.Migrations
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Deadline = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Describtion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ScheduleLessonId = table.Column<int>(type: "int", nullable: false)
+                    ScheduleLessonId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -259,7 +259,7 @@ namespace StudentOrganizer.DAL.Migrations
                         column: x => x.ScheduleLessonId,
                         principalTable: "ScheduleLessons",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

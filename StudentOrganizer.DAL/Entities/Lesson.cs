@@ -4,10 +4,14 @@ using System.Text;
 
 namespace StudentOrganizer.DAL.Entities
 {
+
+
     public class Lesson : DBEntity
     {
         public string Name { get; set; }
         public string TeacherFullName { get; set; }
+        
         public ICollection<ScheduleLesson> ScheduleLessons { get; set; }
+        
     }
 }

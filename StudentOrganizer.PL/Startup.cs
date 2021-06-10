@@ -25,7 +25,7 @@ namespace StudentOrganizer.PL
         {
             services.AddControllersWithViews();
 
-            services.AddDbContextPool<SOrganizerDBContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SOrganaizerDB")));
+            services.AddDbContext<SOrganizerDBContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SOrganaizerDB")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
