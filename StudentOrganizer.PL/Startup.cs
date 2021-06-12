@@ -13,6 +13,7 @@ using StudentOrganizer.BLL.Interfaces;
 using StudentOrganizer.BLL.Services;
 using StudentOrganizer.DAL;
 using StudentOrganizer.DAL.Interfaces;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace StudentOrganizer.PL
 {
@@ -28,7 +29,9 @@ namespace StudentOrganizer.PL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
 
             services.AddDbContext<SOrganizerDBContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SOrganaizerDB")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();

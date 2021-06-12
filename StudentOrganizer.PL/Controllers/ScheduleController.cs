@@ -21,9 +21,9 @@ namespace StudentOrganizer.PL.Controllers
 
         //GET: /api/schedule/
         [HttpGet]
-        public ActionResult<IEnumerable<ScheduleDTO>> GetAll()
+        public async Task<ActionResult<IEnumerable<ScheduleDTO>>> GetAll()
         {
-            var result = _service.GetAllWithDetailsAsync();
+            var result = await _service.GetAllWithDetailsAsync();
             return Ok(result);
         }
 
