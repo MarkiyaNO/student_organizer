@@ -18,6 +18,8 @@ namespace StudentOrganizer.DAL.Entities
         public Student Student { get; set; }
         public ScheduleType ScheduleType { get; set; }
 
+        public string Description { get; set; }
+
         public bool IsFinished { get; set; }
     }
 }

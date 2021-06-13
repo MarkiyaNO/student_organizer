@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentOrganizer.DAL;
 
 namespace StudentOrganizer.DAL.Migrations
 {
     [DbContext(typeof(SOrganizerDBContext))]
-    partial class SOrganizerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210613140500_MigrationDesc")]
+    partial class MigrationDesc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

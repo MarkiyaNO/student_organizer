@@ -12,6 +12,7 @@ namespace StudentOrganizer.BLL.Models
         public ICollection<ScheduleLessonDTO> ScheduleLessons { get; set; }
         public StudentDTO Student { get; set; }
         public ScheduleType ScheduleType { get; set; }
+        public string Description { get; set; }
         public bool IsFinished { get; set; }
     }
 }
