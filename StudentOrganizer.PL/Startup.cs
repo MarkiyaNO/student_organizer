@@ -14,6 +14,7 @@ using StudentOrganizer.BLL.Services;
 using StudentOrganizer.DAL;
 using StudentOrganizer.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.OpenApi.Models;
 
 namespace StudentOrganizer.PL
 {
@@ -31,7 +32,7 @@ namespace StudentOrganizer.PL
         {
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
+
 
             services.AddDbContext<SOrganizerDBContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SOrganaizerDB")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -41,6 +42,10 @@ namespace StudentOrganizer.PL
             services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<IScheduleLessonService, ScheduleLessonService>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddSwaggerGen(options =>
+                { options.SwaggerDoc("v1", new OpenApiInfo()
+                    { Title = "My Student Organizer", Version = "v1" });
+                });
 
             // var mpcfg = new MapperConfiguration(c => c.AddProfile(new AutomapperProfile()));
             var mpcfg = new MapperConfiguration(c => {
@@ -70,7 +75,11 @@ namespace StudentOrganizer.PL
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "My Student Organizer");
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
