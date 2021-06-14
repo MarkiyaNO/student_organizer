@@ -14,7 +14,6 @@ namespace StudentOrganizer.DAL.Interfaces
         public LessonRepository Lessons { get; }
         public ScheduleLessonRepository ScheduleLessons { get; }
         public ScheduleRepository Schedules { get; }
-        public StudentProfileRepository StudentProfiles { get; }
         public StudentRepository Students {get;}
 
         Task<int> SaveAsync();

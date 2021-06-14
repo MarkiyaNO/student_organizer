@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StudentOrganizer.BL;
+using StudentOrganizer.BLL;
 using StudentOrganizer.BLL.Interfaces;
 using StudentOrganizer.BLL.Services;
 using StudentOrganizer.DAL;
@@ -37,6 +37,10 @@ namespace StudentOrganizer.PL
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<IAssignmentService, AssignmentService>();
+            services.AddScoped<ILessonService, LessonService>();
+            services.AddScoped<IScheduleLessonService, ScheduleLessonService>();
+            services.AddScoped<IStudentService, StudentService>();
 
             // var mpcfg = new MapperConfiguration(c => c.AddProfile(new AutomapperProfile()));
             var mpcfg = new MapperConfiguration(c => {

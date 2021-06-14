@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentOrganizer.BL.Validation
+namespace StudentOrganizer.BLL.Validation
 {
     public class StudentOrganizerException : Exception
     {

@@ -58,5 +58,10 @@ namespace StudentOrganizer.DAL.Repositories
         {
             return _context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
+
+        public void Update(TEntity entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+        }
     }
 }

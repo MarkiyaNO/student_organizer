@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudentOrganizer.BL
+namespace StudentOrganizer.BLL
 {
     public class AutomapperProfile : Profile
     {
@@ -51,8 +51,6 @@ namespace StudentOrganizer.BL
             CreateMap<Schedule, ScheduleDTO>().ReverseMap();
 
             CreateMap<Student, StudentDTO>().ReverseMap();
-
-            CreateMap<StudentProfile, StudentProfileDTO>().ReverseMap();
 
             CreateMap<Assignment, AssignmentDTO>().ReverseMap();
         }

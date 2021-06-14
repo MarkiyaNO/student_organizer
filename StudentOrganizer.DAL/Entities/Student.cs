@@ -11,6 +11,11 @@ namespace StudentOrganizer.DAL.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public ICollection<Schedule> Schedules { get; set; }
-        public StudentProfile StudentProfile { get; set; }
+        //StudentProfile part
+        public DateTime DateOfBirth { get; set; }
+        public string StudentPassId { get; set; }
+        public string Faculty { get; set; }
+        public string Department { get; set; }
+        public string Group { get; set; }
     }
 }

@@ -18,5 +18,6 @@ namespace StudentOrganizer.DAL.Interfaces
         Task AddRangeAsync(IEnumerable<TEntity> entities);
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
+        void Update(TEntity entity);
     }
 }

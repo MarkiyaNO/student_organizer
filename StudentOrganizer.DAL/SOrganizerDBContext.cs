@@ -13,7 +13,7 @@ namespace StudentOrganizer.DAL
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<ScheduleLesson> ScheduleLessons { get; set; }
-        public DbSet<StudentProfile> StudentProfiles { get; set; }
+        //public DbSet<StudentProfile> StudentProfiles { get; set; }
 
         public SOrganizerDBContext(DbContextOptions<SOrganizerDBContext> options) : base(options)
         { }
@@ -44,15 +44,17 @@ namespace StudentOrganizer.DAL
                         .HasKey(x => x.Id);
 
             // StudentProfile
-            modelBuilder.Entity<StudentProfile>()
-                        .HasKey(x => x.Id);
+            //modelBuilder.Entity<StudentProfile>()
+            //            .HasKey(x => x.Id);
 
-            modelBuilder.Entity<StudentProfile>()
-                        .HasOne(x => x.Student)
-                        .WithOne(x => x.StudentProfile)
-                        .HasPrincipalKey<Student>(x => x.StudentId)
-                        .HasForeignKey<StudentProfile>(x => x.Id); /// !
-
+            //modelBuilder.Entity<StudentProfile>()
+            //            .HasOne(x => x.Student)
+            //            .WithOne(x => x.StudentProfile)
+            //            .HasPrincipalKey<Student>(x => x.StudentId)
+            //            .HasForeignKey<StudentProfile>(x => x.Id); /// !
+            //Student
+            modelBuilder.Entity<Student>()
+                .ToTable("Students");
             // ScheduleLesson
             modelBuilder.Entity<ScheduleLesson>()
                         .HasKey(x => x.Id);

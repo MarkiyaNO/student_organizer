@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using StudentOrganizer.BLL.Interfaces;
 using StudentOrganizer.BLL.Models;
 using System;
@@ -14,9 +15,11 @@ namespace StudentOrganizer.PL.Controllers
     public class ScheduleController : ControllerBase
     {
         readonly IScheduleService _service;
-        public ScheduleController(IScheduleService scheduleService)
+        readonly IMapper _mapper;
+        public ScheduleController(IScheduleService scheduleService,IMapper mapper)
         {
             _service = scheduleService;
+            _mapper = mapper;
         }
 
         //GET: /api/schedule/

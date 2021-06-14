@@ -16,7 +16,6 @@ namespace StudentOrganizer.DAL
         private LessonRepository lessonRepository;
         private ScheduleRepository scheduleRepository;
         private ScheduleLessonRepository scheduleLessonRepository;
-        private StudentProfileRepository studentProfileRepository;
         private StudentRepository studentRepository;
 
         public UnitOfWork(SOrganizerDBContext context)
@@ -32,8 +31,6 @@ namespace StudentOrganizer.DAL
         public ScheduleLessonRepository ScheduleLessons => scheduleLessonRepository ??= new ScheduleLessonRepository(_context);
 
         public ScheduleRepository Schedules => scheduleRepository ??= new ScheduleRepository(_context);
-
-        public StudentProfileRepository StudentProfiles => studentProfileRepository ??= new StudentProfileRepository(_context);
 
         public StudentRepository Students => studentRepository ??= new StudentRepository(_context);
 

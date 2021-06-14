@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentOrganizer.BL.Interfaces
+namespace StudentOrganizer.BLL.Interfaces
 {
     public interface ICrud<T> where T : class
     {

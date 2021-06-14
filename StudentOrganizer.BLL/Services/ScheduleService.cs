@@ -22,14 +22,18 @@ namespace StudentOrganizer.BLL.Services
             _mapper = mapper;
         }
 
-        public Task AddAsync(ScheduleDTO model)
+        public async Task AddAsync(ScheduleDTO model)
         {
-            throw new NotImplementedException();
+            var schedule = _mapper.Map<ScheduleDTO, Schedule>(model);
+            await _unitOfWork.Schedules.AddAsync(schedule);
+            await _unitOfWork.SaveAsync();
         }
 
-        public Task DeleteByIdAsync(int modelId)
+        public async Task DeleteByIdAsync(int modelId)
         {
-            throw new NotImplementedException();
+            var schedule = await _unitOfWork.Schedules.GetByIdAsync(modelId);
+            _unitOfWork.Schedules.Remove(schedule);
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task<IEnumerable<ScheduleDTO>> GetAllAsync()
@@ -56,9 +60,11 @@ namespace StudentOrganizer.BLL.Services
             return _mapper.Map<Schedule, ScheduleDTO>(schedule);
         }
 
-        public Task UpdateAsync(ScheduleDTO model)
+        public async Task UpdateAsync(ScheduleDTO model)
         {
-            throw new NotImplementedException();
+            var schedule = _mapper.Map<ScheduleDTO, Schedule>(model);
+            _unitOfWork.Schedules.Update(schedule);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using StudentOrganizer.BL.Interfaces;
+﻿using StudentOrganizer.BLL.Interfaces;
 using StudentOrganizer.BLL.Models;
 using System;
 using System.Collections.Generic;
