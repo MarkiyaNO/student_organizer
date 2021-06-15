@@ -38,5 +38,14 @@ namespace StudentOrganizer.PL.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Create(ScheduleDTO schedule)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+            await _service.AddAsync(schedule);
+            return Ok();
+        }
+
     }
 }

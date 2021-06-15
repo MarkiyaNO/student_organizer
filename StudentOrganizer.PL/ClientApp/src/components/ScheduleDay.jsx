@@ -34,7 +34,9 @@ export class ScheduleDay extends Component {
     {
     return(
         <div className="my-3 p-3 rounded bg-light">
-        <button type="button" className="btn btn-close float-end" aria-label="Close"></button>
+        <button type="button" className="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <h1>{ScheduleDay.Days[this.state.day]}</h1>
         <div className="my-3">
         <ul className="list-group">
@@ -43,7 +45,8 @@ export class ScheduleDay extends Component {
             }
         </ul>
         </div>
-        <button type="button" className="btn btn-secondary">View details</button>
+            <button type="button" className="btn btn-secondary mx-1">View details</button>
+            <button type="button" className="btn btn-secondary mx-1">Add lesson</button>
       </div>
         );
     }

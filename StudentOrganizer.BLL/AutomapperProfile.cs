@@ -48,7 +48,9 @@ namespace StudentOrganizer.BLL
 
             CreateMap<ScheduleLesson, ScheduleLessonDTO>().ReverseMap();
 
-            CreateMap<Schedule, ScheduleDTO>().ReverseMap();
+            CreateMap<Schedule, ScheduleDTO>();
+            CreateMap<ScheduleDTO, Schedule>().ForMember(x=>x.Id, opt=>opt.Ignore());
+           
 
             CreateMap<Student, StudentDTO>().ReverseMap();
 

@@ -12,10 +12,12 @@ export class ScheduleComponent extends Component {
     render() {
        return( 
             <div className="col mx-1 p-3 rounded bg-light">
-                <button type="button" className="btn btn-close float-end" aria-label="Close"></button>
+               <button type="button" className="close" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
                 <h1>{this.state.schedule.name}</h1>
                <p>{this.state.schedule.description}</p>
-               <Link to={`/schedules/${this.state.schedule.id}`}>
+               <Link to={`/schedules/get/${this.state.schedule.id}`}>
                    <button type="button" className="btn btn-secondary">View</button>
                </Link>
             </div>

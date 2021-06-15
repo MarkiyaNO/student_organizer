@@ -25,6 +25,7 @@ namespace StudentOrganizer.BLL.Services
         public async Task AddAsync(ScheduleDTO model)
         {
             var schedule = _mapper.Map<ScheduleDTO, Schedule>(model);
+          
             await _unitOfWork.Schedules.AddAsync(schedule);
             await _unitOfWork.SaveAsync();
         }
