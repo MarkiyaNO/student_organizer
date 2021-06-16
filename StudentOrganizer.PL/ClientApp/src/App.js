@@ -9,6 +9,9 @@ import {ScheduleAddForm} from './components/ScheduleAddForm';
 
 import './custom.css'
 import { Schedules } from './components/Schedules';
+import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
+import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
+import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -18,11 +21,11 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} />
         <Route exact path='/counter' component={Counter} />
-        <Route exact path='/fetch-data' component={FetchData} />
+        <AuthorizeRoute exact path='/fetch-data' component={FetchData} />
         <Route exact path='/schedules/create' component = {ScheduleAddForm}/>
         <Route exact path='/schedules/get/:id' component={Schedule}/>
         <Route exact path='/schedules' component={Schedules} />
-        
+        <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
       </Layout>
     );
   }

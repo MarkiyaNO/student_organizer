@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using StudentOrganizer.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,7 +10,7 @@ using System.Text;
 
 namespace StudentOrganizer.DAL
 {
-    public class SOrganizerDBContext : IdentityDbContext<Student>
+    public class SOrganizerDBContext : ApiAuthorizationDbContext<Student>
     {
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
@@ -15,7 +18,8 @@ namespace StudentOrganizer.DAL
         public DbSet<ScheduleLesson> ScheduleLessons { get; set; }
         //public DbSet<StudentProfile> StudentProfiles { get; set; }
 
-        public SOrganizerDBContext(DbContextOptions<SOrganizerDBContext> options) : base(options)
+        public SOrganizerDBContext(DbContextOptions<SOrganizerDBContext> options,
+            IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options,operationalStoreOptions)
         { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

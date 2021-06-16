@@ -15,6 +15,10 @@ using StudentOrganizer.DAL;
 using StudentOrganizer.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
+using StudentOrganizer.DAL.Entities;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 
 namespace StudentOrganizer.PL
 {
@@ -30,11 +34,20 @@ namespace StudentOrganizer.PL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 
             services.AddDbContext<SOrganizerDBContext>(c => c.UseSqlServer(Configuration.GetConnectionString("SOrganaizerDB")));
+            services.AddDefaultIdentity<Student>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<SOrganizerDBContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<Student, SOrganizerDBContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+
+
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IScheduleService, ScheduleService>();
@@ -55,6 +68,9 @@ namespace StudentOrganizer.PL
 
             services.AddSingleton(mpcfg.CreateMapper());
 
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddRazorPages();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -68,6 +84,7 @@ namespace StudentOrganizer.PL
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -75,22 +92,30 @@ namespace StudentOrganizer.PL
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("v1/swagger.json", "My Student Organizer");
-            });
+
+
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseIdentityServer();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "My Student Organizer");
             });
 
             app.UseSpa(spa =>
