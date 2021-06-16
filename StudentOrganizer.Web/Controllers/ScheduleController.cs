@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudentOrganizer.BLL.Interfaces;
 using StudentOrganizer.BLL.Models;
+using StudentOrganizer.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +15,24 @@ namespace StudentOrganizer.Web.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ScheduleController : ControllerBase
     {
         readonly IScheduleService _service;
         readonly IMapper _mapper;
-        public ScheduleController(IScheduleService scheduleService,IMapper mapper)
+        readonly UserManager<Student> _userManager;
+        public ScheduleController(IScheduleService scheduleService,IMapper mapper, UserManager<Student> userManager)
         {
             _service = scheduleService;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         //GET: /api/schedule/
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ScheduleDTO>>> GetAll()
         {
-            var result = await _service.GetAllWithDetailsAsync();
+            var result = await _service.GetAllWithDetailsAsync(User);
             return Ok(result);
         }
 
@@ -35,8 +40,10 @@ namespace StudentOrganizer.Web.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<ScheduleDTO>>> GetById(int id)
         {
-            var result = await _service.GetByIdWithDetailsAsync(id);
-            return Ok(result);
+            var result = await _service.GetByIdWithDetailsAsync(id,User);
+            if(result!=null)
+                return Ok(result);
+            return Forbid();
         }
 
         [HttpPost]
@@ -44,7 +51,7 @@ namespace StudentOrganizer.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
-            await _service.AddAsync(schedule);
+            await _service.AddAsync(schedule,User);
             return Ok();
         }
 

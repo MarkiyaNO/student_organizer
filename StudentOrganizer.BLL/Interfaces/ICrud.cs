@@ -12,5 +12,6 @@ namespace StudentOrganizer.BLL.Interfaces
         Task AddAsync(T model);
         Task UpdateAsync(T model);
         Task DeleteByIdAsync(int modelId);
+
     }
 }

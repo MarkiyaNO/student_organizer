@@ -22,9 +22,9 @@ export default class App extends Component {
                 <Route exact path='/' component={Home} />
                 <Route exact path='/counter' component={Counter} />
                 <AuthorizeRoute exact path='/fetch-data' component={FetchData} />
-                <Route exact path='/schedules/create' component={ScheduleAddForm} />
-                <Route exact path='/schedules/get/:id' component={Schedule} />
-                <Route exact path='/schedules' component={Schedules} />
+                <AuthorizeRoute exact path='/schedules/create' component={ScheduleAddForm} />
+                <AuthorizeRoute exact path='/schedules/get/:id' component={Schedule} />
+                <AuthorizeRoute exact path='/schedules' component={Schedules} />
                 <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
             </Layout>
         );

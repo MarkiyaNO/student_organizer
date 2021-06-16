@@ -18,6 +18,7 @@ using StudentOrganizer.BLL.Services;
 using StudentOrganizer.DAL;
 using StudentOrganizer.DAL.Entities;
 using StudentOrganizer.DAL.Interfaces;
+using System.Security.Claims;
 
 namespace StudentOrganizer.Web
 {
@@ -47,6 +48,8 @@ namespace StudentOrganizer.Web
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+            services.Configure<IdentityOptions>(
+                options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

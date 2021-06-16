@@ -436,7 +436,9 @@ namespace StudentOrganizer.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("StudentPassId")
                         .HasColumnType("nvarchar(max)");

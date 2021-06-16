@@ -7,7 +7,7 @@ using StudentOrganizer.DAL.Repositories;
 
 namespace StudentOrganizer.DAL.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         // TODO: replace repositories with interfaces : StudentRepository=>IStudentRepository
         public AssignmentRepository Assignments { get; }

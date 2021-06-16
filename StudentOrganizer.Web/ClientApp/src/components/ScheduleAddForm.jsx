@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import authService from './api-authorization/AuthorizeService'
 
 export class ScheduleAddForm extends Component {
     constructor(props) {
@@ -21,19 +22,20 @@ export class ScheduleAddForm extends Component {
         this.setState({scheduleType: event.target.value});
       }
     
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         try {
+            const token = await authService.getAccessToken();
             const response = fetch('api/schedule', 
             {
               method: 'POST', 
               body: JSON.stringify(this.state),
-              headers: {
-                'Content-Type': 'application/json'
-            }})
+              headers: !token ? {} : { 'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json' }
+              })
                 .then(res => res.text())
-            console.log('Schedule added')
-            this.props.history.push('/schedules');
+                .then(console.log('Schedule added'))
+                .then(this.props.history.push('/schedules'));
           } catch (error) {
             console.error('Ошибка:', error);
           }

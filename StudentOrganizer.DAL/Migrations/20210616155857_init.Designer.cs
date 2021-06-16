@@ -10,8 +10,8 @@ using StudentOrganizer.DAL;
 namespace StudentOrganizer.DAL.Migrations
 {
     [DbContext(typeof(SOrganizerDBContext))]
-    [Migration("20210616120824_IdentityApi")]
-    partial class IdentityApi
+    [Migration("20210616155857_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -438,7 +438,9 @@ namespace StudentOrganizer.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("StudentPassId")
                         .HasColumnType("nvarchar(max)");

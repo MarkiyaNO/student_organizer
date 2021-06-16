@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace StudentOrganizer.DAL.Entities
 {
     public class Student : IdentityUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

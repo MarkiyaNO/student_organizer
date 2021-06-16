@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ScheduleComponent} from './ScheduleComponent'
+import authService from './api-authorization/AuthorizeService'
 
 export class Schedules extends Component {
     constructor(props) {
@@ -41,8 +42,11 @@ export class Schedules extends Component {
         );
     }
     
-    async populateScheduleData() {
-        const response = await fetch('api/schedule');
+    async populateScheduleData() {           
+        const token = await authService.getAccessToken();
+        const response = await fetch('api/schedule', {
+          headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        });
         const data = await response.json();
         this.setState({ schedules: data});
     }
