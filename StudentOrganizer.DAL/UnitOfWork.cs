@@ -41,7 +41,7 @@ namespace StudentOrganizer.DAL
 
         //Dispose pattern
         private bool disposed = false;
-
+ 
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

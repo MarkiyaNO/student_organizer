@@ -12,8 +12,8 @@ export class Home extends Component {
                           <h1 className="fw-light">Student organizer</h1>
                           <p className="lead text-muted">Student organizer provides service to create and manage your schedule, lessons and assignments.</p>
                           <p>
-                              <a href="#" className="btn btn-primary my-2 mx-1">Create your schedule</a>
-                              <a href="#" className="btn btn-secondary my-2 mx-1">View your schedules</a>
+                              <a href="schedules/create" className="btn btn-primary my-2 mx-1">Create your schedule</a>
+                              <a href="schedules" className="btn btn-secondary my-2 mx-1">View your schedules</a>
                           </p>
                       </div>
                   </div>

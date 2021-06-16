@@ -21,7 +21,7 @@ namespace StudentOrganizer.Web.Controllers
         readonly IScheduleService _service;
         readonly IMapper _mapper;
         readonly UserManager<Student> _userManager;
-        public ScheduleController(IScheduleService scheduleService,IMapper mapper, UserManager<Student> userManager)
+        public ScheduleController(IScheduleService scheduleService, IMapper mapper, UserManager<Student> userManager)
         {
             _service = scheduleService;
             _mapper = mapper;
@@ -40,8 +40,8 @@ namespace StudentOrganizer.Web.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<ScheduleDTO>>> GetById(int id)
         {
-            var result = await _service.GetByIdWithDetailsAsync(id,User);
-            if(result!=null)
+            var result = await _service.GetByIdWithDetailsAsync(id, User);
+            if (result != null)
                 return Ok(result);
             return Forbid();
         }
@@ -51,7 +51,14 @@ namespace StudentOrganizer.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
-            await _service.AddAsync(schedule,User);
+            await _service.AddAsync(schedule, User);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async  Task<IActionResult> Delete(int id)
+        {
+            await _service.DeleteByIdAsync(id, User);
             return Ok();
         }
 

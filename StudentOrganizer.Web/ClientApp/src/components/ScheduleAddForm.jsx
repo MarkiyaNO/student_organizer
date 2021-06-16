@@ -35,10 +35,10 @@ export class ScheduleAddForm extends Component {
               })
                 .then(res => res.text())
                 .then(console.log('Schedule added'))
-                .then(this.props.history.push('/schedules'));
           } catch (error) {
             console.error('Ошибка:', error);
-          }
+        }
+        this.props.history.push('/schedules');
       }
     render() { 
         return (

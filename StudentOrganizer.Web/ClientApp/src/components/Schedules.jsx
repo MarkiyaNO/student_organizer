@@ -7,8 +7,16 @@ export class Schedules extends Component {
         super(props);
         this.state = { schedules : [] };
     }
+
+    handleDeleteCallback = (childData) =>{
+        const index = this.state.schedules.indexOf(childData);
+        if(index>-1){
+            this.state.schedules.splice(index,1);
+        }
+        this.setState({ schedules: this.state.schedules });
+     }
     componentDidMount() {
-        this.populateScheduleData();
+        this.populateScheduleData();  
     }
     
     render() {
@@ -23,7 +31,7 @@ export class Schedules extends Component {
                 {
                     innerindents.push(
                         <ScheduleComponent
-                        parentData = {this.state.schedules[i]}>
+                        parentData = {this.state.schedules[i]} parentCallback = {this.handleDeleteCallback}>
                         </ScheduleComponent >
                     )
                     count++;

@@ -51,13 +51,13 @@ namespace StudentOrganizer.Web
             services.Configure<IdentityOptions>(
                 options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IScheduleService, ScheduleService>();
-            services.AddScoped<IAssignmentService, AssignmentService>();
-            services.AddScoped<ILessonService, LessonService>();
-            services.AddScoped<IScheduleLessonService, ScheduleLessonService>();
-            services.AddScoped<IStudentService, StudentService>();
+            services.AddTransient<IScheduleService, ScheduleService>();
+            services.AddTransient<IAssignmentService, AssignmentService>();
+            services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<IScheduleLessonService, ScheduleLessonService>();
+            services.AddTransient<IStudentService, StudentService>();
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo()
