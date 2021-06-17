@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using StudentOrganizer.BLL.Interfaces;
+using StudentOrganizer.BLL.Models;
+using StudentOrganizer.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,38 +16,23 @@ namespace StudentOrganizer.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LessonController : ControllerBase
     {
-        // GET: api/<LessonController>
+        readonly ILessonService _service;
+        readonly IMapper _mapper;
+        public LessonController(ILessonService scheduleService, IMapper mapper, UserManager<Student> userManager)
+        {
+            _service = scheduleService;
+            _mapper = mapper;
+        }
+
+        //GET: /api/schedule/
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<LessonDTO>>> GetAll()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<LessonController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<LessonController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<LessonController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<LessonController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var result = await _service.GetAllAsync();
+            return Ok(result);
         }
     }
 }

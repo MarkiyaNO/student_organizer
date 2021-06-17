@@ -28,10 +28,26 @@ namespace StudentOrganizer.BLL.Services
             await _unitOfWork.SaveAsync();
         }
 
+        public async Task AddAsync(ScheduleLessonDTO model, ScheduleDTO schedule)
+        {
+            var _schedule = _mapper.Map<ScheduleDTO, Schedule>(schedule);
+            var scheduleLesson = _mapper.Map<ScheduleLessonDTO, ScheduleLesson>(model);
+            await _unitOfWork.ScheduleLessons.AddAsync(scheduleLesson, _schedule);
+            await _unitOfWork.SaveAsync();
+        }
+
         public async Task DeleteByIdAsync(int modelId)
         {
             var scheduleLesson = await _unitOfWork.ScheduleLessons.GetByIdAsync(modelId);
             _unitOfWork.ScheduleLessons.Remove(scheduleLesson);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task DeleteByIdAsync(int modelId, ScheduleDTO schedule)
+        {
+            var _schedule = _mapper.Map<ScheduleDTO, Schedule>(schedule);
+            var scheduleLesson = await _unitOfWork.ScheduleLessons.GetByIdAsync(modelId);
+            _unitOfWork.ScheduleLessons.Remove(scheduleLesson,_schedule);
             await _unitOfWork.SaveAsync();
         }
 
@@ -41,9 +57,23 @@ namespace StudentOrganizer.BLL.Services
             return _mapper.Map<IEnumerable<ScheduleLesson>, IEnumerable<ScheduleLessonDTO>>(scheduleLessons);
         }
 
+        public async Task<IEnumerable<ScheduleLessonDTO>> GetAllAsync(ScheduleDTO schedule)
+        {
+            var _schedule = _mapper.Map<ScheduleDTO, Schedule>(schedule);
+            var scheduleLessons = await _unitOfWork.ScheduleLessons.GetAllAsync(_schedule);
+            return _mapper.Map<IEnumerable<ScheduleLesson>, IEnumerable<ScheduleLessonDTO>>(scheduleLessons);
+        }
+
         public async Task<ScheduleLessonDTO> GetByIdAsync(int id)
         {
             var scheduleLesson = await _unitOfWork.ScheduleLessons.GetByIdAsync(id);
+            return _mapper.Map<ScheduleLesson, ScheduleLessonDTO>(scheduleLesson);
+        }
+
+        public async Task<ScheduleLessonDTO> GetByIdAsync(int id, ScheduleDTO schedule)
+        {
+            var _schedule = _mapper.Map<ScheduleDTO, Schedule>(schedule);
+            var scheduleLesson = await _unitOfWork.ScheduleLessons.GetByIdAsync(id,_schedule);
             return _mapper.Map<ScheduleLesson, ScheduleLessonDTO>(scheduleLesson);
         }
 
@@ -51,6 +81,14 @@ namespace StudentOrganizer.BLL.Services
         {
             var scheduleLesson = _mapper.Map<ScheduleLessonDTO, ScheduleLesson>(model);
             _unitOfWork.ScheduleLessons.Update(scheduleLesson);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task UpdateAsync(ScheduleLessonDTO model, ScheduleDTO schedule)
+        {
+            var _schedule = _mapper.Map<ScheduleDTO, Schedule>(schedule);
+            var scheduleLesson = _mapper.Map<ScheduleLessonDTO, ScheduleLesson>(model);
+            _unitOfWork.ScheduleLessons.Update(scheduleLesson,_schedule);
             await _unitOfWork.SaveAsync();
         }
     }

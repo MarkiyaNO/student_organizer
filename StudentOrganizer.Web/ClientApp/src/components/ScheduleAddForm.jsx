@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 import authService from './api-authorization/AuthorizeService'
 
 export class ScheduleAddForm extends Component {
@@ -26,7 +25,7 @@ export class ScheduleAddForm extends Component {
         event.preventDefault();
         try {
             const token = await authService.getAccessToken();
-            const response = fetch('api/schedule', 
+            fetch('api/schedule', 
             {
               method: 'POST', 
               body: JSON.stringify(this.state),
@@ -46,7 +45,7 @@ export class ScheduleAddForm extends Component {
             <div className="row">
                 <div className="panel panel-primary">
                     <div className="panel-body">
-                        <form role='form' onSubmit = {this.handleSubmit}>
+                        <form onSubmit = {this.handleSubmit}>
                             <div className="form-group w-50 mx-auto">
                                 <h2 className="pt-5 text-center">Add new Schedule</h2>
                             </div>

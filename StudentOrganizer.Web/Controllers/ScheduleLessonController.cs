@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using StudentOrganizer.BLL.Interfaces;
+using StudentOrganizer.BLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,38 +15,50 @@ namespace StudentOrganizer.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ScheduleLessonController : ControllerBase
     {
-        // GET: api/<ScheduleLessonController>
+        readonly IScheduleLessonService _service;
+        readonly IMapper _mapper;
+        public ScheduleLessonController(IScheduleLessonService scheduleService, IMapper mapper)
+        {
+            _service = scheduleService;
+            _mapper = mapper;
+        }
+
+
+        //GET: /api/schedulelesson/
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<ScheduleLessonDTO>>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _service.GetAllAsync();
+            return Ok(result);
         }
 
-        // GET api/<ScheduleLessonController>/5
+        //GET: /api/schedulelesson/1
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<IEnumerable<ScheduleDTO>>> GetById(int id)
         {
-            return "value";
+            var result = await _service.GetByIdAsync(id);
+            if (result != null)
+                return Ok(result);
+            return Forbid();
         }
 
-        // POST api/<ScheduleLessonController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Create(ScheduleLessonDTO model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+            await _service.AddAsync(model);
+            return Ok();
         }
 
-        // PUT api/<ScheduleLessonController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ScheduleLessonController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        { 
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.DeleteByIdAsync(id);
+            return Ok();
         }
     }
 }

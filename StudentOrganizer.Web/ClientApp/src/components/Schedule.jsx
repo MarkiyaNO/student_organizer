@@ -18,7 +18,9 @@ export class Schedule extends Component {
                 <div className="container">
                     {days.map(day =>
                         <ScheduleDay key = {day}
-                            parentData={{ schedule: this.state.schedule, day: day }}>
+                            parentData={{ schedule: this.state.schedule, day: day}}
+                            history ={this.props.history}
+                            >
                         </ScheduleDay>
                     )}
                 </div>

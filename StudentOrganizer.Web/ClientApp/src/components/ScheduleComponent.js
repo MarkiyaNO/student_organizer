@@ -15,7 +15,7 @@ export class ScheduleComponent extends Component {
         event.preventDefault();
         try {
             const token = await authService.getAccessToken();
-            const response = fetch(`api/schedule/${this.props.parentData.id}`, 
+            fetch(`api/schedule/${this.props.parentData.id}`, 
             {
               method: 'Delete', 
               headers: !token ? {} : { 'Authorization': `Bearer ${token}`}

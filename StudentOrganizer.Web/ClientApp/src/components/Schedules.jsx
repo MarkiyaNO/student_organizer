@@ -30,7 +30,7 @@ export class Schedules extends Component {
                 while(i<this.state.schedules.length && count<3)
                 {
                     innerindents.push(
-                        <ScheduleComponent
+                        <ScheduleComponent key ={this.state.schedules[i].id}
                         parentData = {this.state.schedules[i]} parentCallback = {this.handleDeleteCallback}>
                         </ScheduleComponent >
                     )
