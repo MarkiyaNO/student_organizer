@@ -44,7 +44,9 @@ export class Schedules extends Component {
     
         }  
        return( 
+            
             <div className = "container">
+            <a href="schedules/create" className="btn btn-primary my-2 mx-1">Create new schedule</a>
                 {indents}
             </div>
         );

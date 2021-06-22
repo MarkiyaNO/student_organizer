@@ -14,6 +14,15 @@ export class ScheduleLessonAddForm extends Component {
         this.renderForm = this.renderForm.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
+      static Days = {
+        0:'Monday',
+        1:'Tuesday',
+        2:'Wednesday',
+        3:'Thursday',
+        4:'Friday',
+        5:'Saturday',
+        6:'Sunday'
+    }
       handlePlaceChange(event) {
         this.setState({place: event.target.value});
       }
@@ -57,7 +66,8 @@ export class ScheduleLessonAddForm extends Component {
                     lessonId:this.state.activeLessonId,
                     place:this.state.place,
                     link:this.state.link,
-                    lessonType:this.state.lectureType
+                    lessonType:this.state.lectureType,
+                    time:this.state.time
                   };
             fetch('api/scheduleLesson',
             {
@@ -71,7 +81,7 @@ export class ScheduleLessonAddForm extends Component {
           } catch (error) {
             console.error('Ошибка:', error);
         }
-        this.props.history.push(`/schedules/get/${this.state.schedule.id}`);
+        this.props.history.push(`/schedules/${this.state.schedule.id}`);
       }
 
     renderForm()
@@ -83,7 +93,7 @@ export class ScheduleLessonAddForm extends Component {
                 <div className="panel-body">
                   <form onSubmit={this.handleSubmit}>
                     <div className="form-group w-50 mx-auto">
-                      <h2 className="pt-5 text-center">Add lesson to *Day of the week*</h2>
+                      <h2 className="pt-5 text-center">Add lesson to {ScheduleLessonAddForm.Days[this.state.day]}</h2>
                     </div>
                     <div className="form-group my-2">
                       <label className="control-label" htmlFor="lessonDetails">Lesson details:</label>

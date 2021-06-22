@@ -28,6 +28,14 @@ namespace StudentOrganizer.BLL.Services
             await _unitOfWork.SaveAsync();
         }
 
+        public async Task AddAsync(AssignmentDTO model, int scheduleLessonId)
+        {
+            var assignment = _mapper.Map<AssignmentDTO, Assignment>(model);
+            var scheduleLesson = await _unitOfWork.ScheduleLessons.GetByIdAsync(scheduleLessonId);
+            await _unitOfWork.Assignments.AddAsync(assignment,scheduleLesson);
+            await _unitOfWork.SaveAsync();
+        }
+
         public async Task DeleteByIdAsync(int modelId)
         {
             var assignment = await _unitOfWork.Assignments.GetByIdAsync(modelId);
@@ -51,6 +59,13 @@ namespace StudentOrganizer.BLL.Services
         {
             var assignment = _mapper.Map<AssignmentDTO, Assignment>(model);
             _unitOfWork.Assignments.Update(assignment);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task UpdateState(int assignmentId, int state)
+        {
+            var assignment = await _unitOfWork.Assignments.GetByIdAsync(assignmentId);
+            await _unitOfWork.Assignments.UpdateState(assignment, state);
             await _unitOfWork.SaveAsync();
         }
     }

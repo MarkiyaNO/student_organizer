@@ -33,37 +33,43 @@ export class ScheduleDay extends Component {
         }
         this.lessons.sort(function(a,b)
         {
-            return a.dayOfTheWeek- b.dayOfTheWeek;
+            return a.lessonNumber- b.lessonNumber;
         })
     }
     render()
     {
         const location = {
-            pathname: 'lessons/create',
+            pathname: '/lessons/create',
             state: {
                 day:this.state.day,
                 schedule:this.state.schedule 
             }
         }
+
     return(
-        
         <div className="my-3 p-3 rounded bg-light">
-        <button type="button" className="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" className="btn btn-close float-end" aria-label="Close"></button>
         <h1>{ScheduleDay.Days[this.state.day]}</h1>
-        <div className="my-3">
-        <ul className="list-group">
-                    {this.lessons.map(lesson =>
-                        <li key={lesson.id} className="list-group-item">{lesson.lesson.name}</li>)
+        <div className="card  my-3">
+          <div className="card-header">
+            Lessons
+          </div>
+          <ul className="list-group list-group-flush">
+          {this.lessons.map(lesson =>
+                        <li key={lesson.id} className="list-group-item">
+                            <h5>Subject: {lesson.lesson.name}</h5>
+                            <h5 className="float-start">Teacher: {lesson.lesson.teacherFullName}</h5>
+                            <h5 className="float-end">{lesson.time}</h5>
+                        </li>
+                        )
             }
-        </ul>
+          </ul>
         </div>
-            <button type="button" className="btn btn-secondary mx-1">View details</button>
-            
-            <Link to={location}><button type="button" className="btn btn-secondary mx-1" onClick = {this.handleAdd}>Add lesson</button></Link>
-      </div>
-        );
+        <div className="text-center">
+          <Link to={`${this.props.parentData.schedule.id}/${this.props.parentData.day}`}><button type="button" className="btn btn-secondary">View details</button></Link>
+          <Link to={location}><button type="button" className="btn btn-secondary mx-1" onClick = {this.handleAdd}>Add lesson</button></Link>
+        </div>
+      </div>);
     }
 }
  

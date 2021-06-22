@@ -31,12 +31,10 @@ export class ScheduleComponent extends Component {
     render() {
        return( 
             <div className="col mx-1 p-3 rounded bg-light">
-               <button type="button" className="close" aria-label="Close" onClick = {this.handleClick}>
-                   <span aria-hidden="true">&times;</span>
-               </button>
+                <button type="button" className="btn btn-close float-end" aria-label="Close" onClick = {this.handleClick}></button>
                <h1>{this.props.parentData.name}</h1>
                <p>{this.props.parentData.description}</p>
-               <Link to={`/schedules/get/${this.props.parentData.id}`}>
+               <Link to={`/schedules/${this.props.parentData.id}`}>
                    <button type="button" className="btn btn-secondary">View</button>
                </Link>
             </div>

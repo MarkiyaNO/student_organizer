@@ -34,5 +34,13 @@ namespace StudentOrganizer.Web.Controllers
             var result = await _service.GetAllAsync();
             return Ok(result);
         }
+        [HttpPost]
+        public async Task<ActionResult> Create(LessonDTO model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+            await _service.AddAsync(model);
+            return Ok();
+        }
     }
 }

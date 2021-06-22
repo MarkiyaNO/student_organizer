@@ -33,7 +33,9 @@ namespace StudentOrganizer.DAL
             modelBuilder.Entity<Schedule>()
                         .HasOne(x => x.Student)
                         .WithMany(x => x.Schedules)
-                        .HasPrincipalKey(x => x.StudentId);
+                        .HasPrincipalKey(x => x.StudentId)
+                        .OnDelete(DeleteBehavior.Cascade);
+
 
             // Assignment
             modelBuilder.Entity<Assignment>()
@@ -42,6 +44,11 @@ namespace StudentOrganizer.DAL
             modelBuilder.Entity<Assignment>()
                         .Property(x => x.State)
                         .HasConversion<string>();
+
+            modelBuilder.Entity<Assignment>()
+                        .HasOne(x => x.ScheduleLesson)
+                        .WithMany(x => x.Assignments)
+                        .OnDelete(DeleteBehavior.Cascade);
 
             // Lesson
             modelBuilder.Entity<Lesson>()
@@ -75,7 +82,8 @@ namespace StudentOrganizer.DAL
             modelBuilder.Entity<ScheduleLesson>()
                         .HasOne(x => x.Schedule)
                         .WithMany(x => x.ScheduleLessons)
-                        .HasForeignKey(x => x.ScheduleId);
+                        .HasForeignKey(x => x.ScheduleId)
+                        .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

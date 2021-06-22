@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StudentOrganizer.DAL.Entities;
 
 namespace StudentOrganizer.BLL.Models
@@ -16,5 +17,6 @@ namespace StudentOrganizer.BLL.Models
         public string Place { get; set; }
         public string Link { get; set; }
         public LessonType LessonType { get; set; }
+        public TimeSpan Time { get; set; }
     }
 }

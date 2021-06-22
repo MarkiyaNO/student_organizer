@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using StudentOrganizer.BLL.Interfaces;
+using StudentOrganizer.BLL.Models;
+using StudentOrganizer.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +18,59 @@ namespace StudentOrganizer.Web.Controllers
     [ApiController]
     public class AssignmentController : ControllerBase
     {
-        // GET: api/<AssignmentController>
+        readonly IAssignmentService _service;
+        readonly IMapper _mapper;
+
+        public AssignmentController(IAssignmentService assignmentService, IMapper mapper)
+        {
+            _service = assignmentService;
+            _mapper = mapper;
+        }
+
+        //GET: /api/assignment/
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _service.GetAllAsync();
+            return Ok(result);
         }
 
-        // GET api/<AssignmentController>/5
+        //GET: /api/assignment/1
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetById(int id)
         {
-            return "value";
+            var result = await _service.GetByIdAsync(id);
+            if (result != null)
+                return Ok(result);
+            return Forbid();
         }
 
-        // POST api/<AssignmentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Create(JObject model)
         {
+            var assignment = model["assignment"].ToObject<AssignmentDTO>();
+            var scheduleLessonId = model["id"].ToObject<int>();
+
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+            await _service.AddAsync(assignment, scheduleLessonId);
+            return Ok();
         }
 
-        // PUT api/<AssignmentController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Update([FromRoute]int id,[FromQuery]int? state)
         {
+            if (state == null)
+                return BadRequest();
+           await _service.UpdateState(id, state.Value);
+            return Ok();
         }
 
-        // DELETE api/<AssignmentController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            await _service.DeleteByIdAsync(id);
+            return Ok();
         }
     }
 }

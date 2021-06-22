@@ -9,10 +9,9 @@ export class Layout extends Component {
 
   render () {
       return (
-          <div>
+          <div >
               <NavMenu />
-              <SearchBar />
-              <Container>
+              <Container style={{minHeight: 578}}>
                   {this.props.children}
               </Container>
               <Footer />

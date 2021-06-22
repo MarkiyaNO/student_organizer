@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace StudentOrganizer.DAL.Interfaces
 {
-    interface ILessonRepository : IRepository<Lesson>
+    public interface IAssignmentRepository :IRepository<Assignment>
     {
-
+        Task AddAsync(Assignment assignment, ScheduleLesson scheduleLesson);
+        Task UpdateState(Assignment assignment, int state);
     }
 }

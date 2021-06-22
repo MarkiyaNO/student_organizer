@@ -6,9 +6,8 @@ namespace StudentOrganizer.DAL.Entities
 {
     public enum AssignmentState
     {
-        NotStarted,
-        InProccess,
         Failed,
+        InProccess,
         Done
     }
     public class Assignment : DBEntity
