@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService'
 
+function convertDate(stringDate) {
+    var date = new Date(stringDate);
+    var options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
+    return date.toLocaleDateString([], options);
+
+}
+
 export class Assignment extends Component {
     constructor(props) {
         super(props);
@@ -50,7 +57,7 @@ export class Assignment extends Component {
                         <button type="button" className="btn btn-secondary" onClick={() => this.handleClick(1)}>In proccess</button>
                         <button type="button" className="btn btn-dark" onClick={() => this.handleClick(2)}>Done</button>
                     </div>
-                    <h5 className="float-end">Deadline: {this.state.assignment.deadline}</h5>
+                    <h5 className="float-end">Deadline: {convertDate(this.state.assignment.deadline)}</h5>
                 </footer>
             </div>
         );

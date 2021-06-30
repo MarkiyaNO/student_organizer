@@ -39,7 +39,7 @@ export class Schedules extends Component {
                     count++;
                     i++;
                 }
-                indents.push(<div className="row mt-3">
+                indents.push(<div className="row mt-3" key={i}>
                     {innerindents}
                 </div>);
             }

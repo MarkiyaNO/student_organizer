@@ -1,0 +1,18 @@
+.crop{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.failed{
+    text-decoration-line:line-through;
+    color: red;
+    opacity: 0.5;
+}
+.inProccess{
+
+}
+.crop.done{
+    text-decoration-line:line-through;
+    color:gray;
+}
