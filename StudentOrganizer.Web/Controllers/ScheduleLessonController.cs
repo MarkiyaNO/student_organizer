@@ -60,5 +60,14 @@ namespace StudentOrganizer.Web.Controllers
             await _service.DeleteByIdAsync(id);
             return Ok();
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRange(IEnumerable<ScheduleLessonDTO> model)
+        {
+            foreach(var scheduleLesson in model)
+            {
+                await _service.DeleteByIdAsync(scheduleLesson.Id);
+            }
+            return Ok();
+        }
     }
 }

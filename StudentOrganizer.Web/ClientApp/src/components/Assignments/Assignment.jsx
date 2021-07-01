@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import authService from './api-authorization/AuthorizeService'
+import authService from '../api-authorization/AuthorizeService';
 
 function convertDate(stringDate) {
     var date = new Date(stringDate);
@@ -13,7 +13,26 @@ export class Assignment extends Component {
         super(props);
         this.state = { assignment: this.props.assignment };
         this.handleClick = this.handleClick.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
+    async handleDelete(event) {
+        event.preventDefault();
+        try {
+            const token = await authService.getAccessToken();
+            await fetch(`api/assignment/${this.props.assignment.id}`,
+                {
+                    method: 'Delete',
+                    headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+                })
+                .then(res => res.text())
+                .then(console.log('Schedule deleted'));
+            this.props.parentCallback(this.props.assignment);
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
+    }
+
+
     async handleClick(state) {
         var tempAssignment = this.props.assignment;
         tempAssignment.state = state
@@ -33,6 +52,7 @@ export class Assignment extends Component {
         } catch (error) {
             console.error('Ошибка:', error);
         }
+        this.props.updateCallBack(this.props.assignment);
     }
     static States = {
         0: 'Failed',
@@ -43,8 +63,8 @@ export class Assignment extends Component {
         return (
             <div className="card my-2">
                 <div className="card-header">
-                    <h5 className="float-start">State: {Assignment.States[this.state.assignment.state]}</h5>
-                    <button type="button" className="btn btn-close float-end" aria-label="Close"></button>
+                    <h5 className="float-start">State: {Assignment.States[this.props.assignment.state]}</h5>
+                    <button type="button" className="btn btn-close float-end" aria-label="Close" onClick={this.handleDelete}></button>
                 </div>
                 <div className="card-body">
                     <blockquote className="blockquote mb-0">
@@ -57,7 +77,7 @@ export class Assignment extends Component {
                         <button type="button" className="btn btn-secondary" onClick={() => this.handleClick(1)}>In proccess</button>
                         <button type="button" className="btn btn-dark" onClick={() => this.handleClick(2)}>Done</button>
                     </div>
-                    <h5 className="float-end">Deadline: {convertDate(this.state.assignment.deadline)}</h5>
+                    <h5 className="float-end">Deadline: {convertDate(this.props.assignment.deadline)}</h5>
                 </footer>
             </div>
         );

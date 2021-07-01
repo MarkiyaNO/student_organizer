@@ -42,5 +42,11 @@ namespace StudentOrganizer.Web.Controllers
             await _service.AddAsync(model,User);
             return Ok();
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _service.DeleteByIdAsync(id, User);
+            return Ok();
+        }
     }
 }

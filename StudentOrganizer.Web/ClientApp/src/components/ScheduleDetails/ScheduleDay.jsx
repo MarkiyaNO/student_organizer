@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { AssignmentList } from './AssignmentList';
+import { AssignmentList } from '../Assignments/AssignmentList';
+import authService from '../api-authorization/AuthorizeService'
 
 function convertTime(time) {
     var date = new Date("1970-01-01 " + time);
@@ -20,9 +21,29 @@ export class ScheduleDay extends Component {
     }
     constructor(props) {
         super(props);
-        this.state = { schedule: this.props.parentData.schedule, day: this.props.parentData.day };
-        this.lessons = [];
+        this.state = { lessons: [], schedule: this.props.parentData.schedule, day: this.props.parentData.day };
         this.handleAdd = this.handleAdd.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+    async handleClick(event) {
+        event.preventDefault();
+        try {
+            const token = await authService.getAccessToken();
+            await fetch(`/api/ScheduleLesson`,
+                {
+                    method: 'Delete',
+                    body: JSON.stringify(this.state.lessons),
+                    headers: !token ? {} : {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.text())
+                .then(console.log('Schedule deleted'));
+            this.setState({ lessons: [] });
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
     }
     handleAdd() {
         //this.props.history.location.pathname = 'schedules';       
@@ -33,9 +54,9 @@ export class ScheduleDay extends Component {
     populateDayData() {
         for (let i = 0; i < this.state.schedule.scheduleLessons.length; i++) {
             if (this.state.schedule.scheduleLessons[i].dayOfTheWeek === this.state.day)
-                this.lessons.push(this.state.schedule.scheduleLessons[i]);
+                this.state.lessons.push(this.state.schedule.scheduleLessons[i]);
         }
-        this.lessons.sort(function (a, b) {
+        this.state.lessons.sort(function (a, b) {
             return a.lessonNumber - b.lessonNumber;
         })
     }
@@ -50,14 +71,14 @@ export class ScheduleDay extends Component {
 
         return (
             <div className="my-3 p-3 rounded bg-light">
-                <button type="button" className="btn btn-close float-end" aria-label="Close"></button>
+                <button type="button" className="btn btn-close float-end" aria-label="Close" onClick={this.handleClick}></button>
                 <h1>{ScheduleDay.Days[this.state.day]}</h1>
                 <div className="card  my-3">
                     <div className="card-header">
                         Lessons
           </div>
                     <ul className="list-group list-group-flush">
-                        {this.lessons.map(lesson =>
+                        {this.state.lessons.map(lesson =>
                             <li key={lesson.id} className="list-group-item">
                                 <h5>Subject: {lesson.lesson.name}</h5>
                                 <h5 className="float-start">Teacher: {lesson.lesson.teacherFullName}</h5>

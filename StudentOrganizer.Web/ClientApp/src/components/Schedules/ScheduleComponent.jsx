@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import authService from './api-authorization/AuthorizeService'
+import authService from '../api-authorization/AuthorizeService'
 
 export class ScheduleComponent extends Component {
     static displayName = ScheduleComponent.name;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ScheduleComponent } from './ScheduleComponent'
-import authService from './api-authorization/AuthorizeService'
+import authService from '../api-authorization/AuthorizeService'
 import { isMobile } from 'react-device-detect';
 
-export class Schedules extends Component {
+export class ScheduleList extends Component {
     constructor(props) {
         super(props);
         this.state = { schedules: [] };

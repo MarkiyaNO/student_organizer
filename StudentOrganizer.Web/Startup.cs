@@ -114,6 +114,11 @@ namespace StudentOrganizer.Web
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "My Student Organizer");
+            });
 
             app.UseSpa(spa =>
             {
@@ -123,12 +128,6 @@ namespace StudentOrganizer.Web
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("v1/swagger.json", "My Student Organizer");
             });
         }
     }

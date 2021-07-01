@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import authService from './api-authorization/AuthorizeService'
+import authService from '../api-authorization/AuthorizeService'
 
-export class LessonAddForm extends Component {
+export class SubjectAddForm extends Component {
   constructor(props) {
     super(props);
     this.state = { name: '', teacher: '' };
