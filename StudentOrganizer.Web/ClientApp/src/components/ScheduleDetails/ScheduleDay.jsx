@@ -5,7 +5,8 @@ import authService from '../api-authorization/AuthorizeService'
 
 function convertTime(time) {
     var date = new Date("1970-01-01 " + time);
-    var newTime = date.getHours() + ':' + date.getMinutes();
+    var options = { hour: '2-digit', minute: '2-digit', hour12: false };
+    var newTime = date.toLocaleString([], options);
     return newTime;
 }
 
