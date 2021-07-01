@@ -31,7 +31,7 @@ namespace StudentOrganizer.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LessonDTO>>> GetAll()
         {
-            var result = await _service.GetAllAsync();
+            var result = await _service.GetAllAsync(User);
             return Ok(result);
         }
         [HttpPost]
@@ -39,7 +39,7 @@ namespace StudentOrganizer.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
-            await _service.AddAsync(model);
+            await _service.AddAsync(model,User);
             return Ok();
         }
     }

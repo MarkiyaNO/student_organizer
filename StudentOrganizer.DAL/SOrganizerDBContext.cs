@@ -54,6 +54,10 @@ namespace StudentOrganizer.DAL
             modelBuilder.Entity<Lesson>()
                         .HasKey(x => x.Id);
 
+            modelBuilder.Entity<Lesson>()
+                        .HasOne(x => x.Student)
+                        .WithMany(x => x.Lessons)
+                        .HasPrincipalKey(x => x.StudentId);
             // StudentProfile
             //modelBuilder.Entity<StudentProfile>()
             //            .HasKey(x => x.Id);

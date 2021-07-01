@@ -9,5 +9,6 @@ namespace StudentOrganizer.DAL.Entities
         public string Name { get; set; }
         public string TeacherFullName { get; set; }
         public ICollection<ScheduleLesson> ScheduleLessons { get; set; }
+        public Student Student { get; set; }
     }
 }

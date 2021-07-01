@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentOrganizer.DAL;
 
 namespace StudentOrganizer.DAL.Migrations
 {
     [DbContext(typeof(SOrganizerDBContext))]
-    partial class SOrganizerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210701105558_LessonStudent")]
+    partial class LessonStudent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,8 +296,8 @@ namespace StudentOrganizer.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TeacherFullName")
                         .HasColumnType("nvarchar(max)");
@@ -533,8 +535,7 @@ namespace StudentOrganizer.DAL.Migrations
                 {
                     b.HasOne("StudentOrganizer.DAL.Entities.Student", "Student")
                         .WithMany("Lessons")
-                        .HasForeignKey("StudentId")
-                        .HasPrincipalKey("StudentId");
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });
